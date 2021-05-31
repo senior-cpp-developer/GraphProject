@@ -6,19 +6,21 @@
 #include "Graph/Edge.h"
 
 namespace SeriousGraphTools{
-    template <typename T>
+    template <typename WEIGHT>
     class SimpleGraph {
 
         std::vector<Node> nodes;
-        std::vector<Edge<T>> connections;
-
-
-        SimpleGraph() = default;
+        std::vector<Edge<WEIGHT>> edges;
 
     public:
+        SimpleGraph() = default;
+
         void addAutoNodes(int hMuch);
 
+        bool connect (int from, int to);
+
     };
+
 }
 
 
