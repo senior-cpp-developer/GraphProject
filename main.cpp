@@ -8,6 +8,8 @@
 using json = nlohmann::json;
 namespace sgt = SeriousGraphTools;
 
+using namespace std;
+
 int main() {
     std::cout << "Hello, World!" << std::endl;
 
@@ -33,6 +35,8 @@ int main() {
         std::cout << "There's a problem with importing your graph. Maybe check later? Dunno " << std::endl;
         exit(-1);
     }
+
+    cout << "isOriented: " << graph.isOriented() << endl;
 
     return 0;
 }

@@ -11,8 +11,8 @@ namespace SeriousGraphTools{
         std::vector<Node> nodes;
         std::vector<Edge> edges;
 
-        bool isDirty = false;
-        bool isOriented = false;
+        bool isDirty_ = false;
+        bool isOriented_ = false;
 
     public:
         SimpleGraph() = default;
@@ -21,16 +21,18 @@ namespace SeriousGraphTools{
 
         bool connect (int from, int to, double weight);
 
-        /*Updates graph's stats like isOriented
-         * ignores isDirty and forces update*/
+        /*Updates graph's stats like isOriented_
+         * ignores isDirty_ and forces update*/
         void forceUpdateInfo();
 
-        /*Updates graph's stats like isOriented
+        /*Updates graph's stats like isOriented_
          * returns false if there's no need for an update*/
         bool updateInfo();
 
+        bool isOriented() {updateInfo(); return isOriented_;};
+
     private:
-        void hasChanged() {isDirty = true;}
+        void hasChanged() { isDirty_ = true;}
         void updateIsOriented();
     };
 

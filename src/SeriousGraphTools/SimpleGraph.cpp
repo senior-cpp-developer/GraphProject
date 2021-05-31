@@ -24,7 +24,7 @@ namespace SeriousGraphTools {
     }
 
     bool SimpleGraph::updateInfo() {
-        if (isDirty) {
+        if (isDirty_) {
             forceUpdateInfo();
             return true;
         }
@@ -33,7 +33,7 @@ namespace SeriousGraphTools {
     }
 
     void SimpleGraph::forceUpdateInfo() {
-        isDirty = false;
+        isDirty_ = false;
         updateIsOriented();
     }
 
@@ -48,6 +48,6 @@ namespace SeriousGraphTools {
         Tools::sortDeleteDuplicates(from);
         Tools::sortDeleteDuplicates(to);
 
-        isOriented = from.size() != to.size();
+        isOriented_ = from.size() != to.size();
     }
 }
