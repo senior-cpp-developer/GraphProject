@@ -3,8 +3,9 @@
 
 namespace SeriousGraphTools {
     class Tools {
+    public:
         template<typename T>
-        static bool isIn(const std::vector<T>& v, const T& what) {
+        static bool isIn(const T& what, const std::vector<T>& v) {
             return std::find(v.begin(), v.end(), what) != v.end();
         }
     };
