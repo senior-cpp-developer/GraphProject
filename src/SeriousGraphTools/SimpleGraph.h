@@ -3,11 +3,14 @@
 
 #include <vector>
 #include "Graph/Node.h"
+#include "Graph/Edge.h"
 
 namespace SeriousGraphTools{
+    template <typename T>
     class SimpleGraph {
 
         std::vector<Node> nodes;
+        std::vector<Edge<T>> connections;
 
 
         SimpleGraph() = default;
