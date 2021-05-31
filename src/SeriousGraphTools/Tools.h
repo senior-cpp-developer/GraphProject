@@ -1,6 +1,8 @@
 #ifndef GRAPHPROJECT_TOOLS_H
 #define GRAPHPROJECT_TOOLS_H
 
+#include <algorithm>
+
 namespace SeriousGraphTools {
     class Tools {
     public:

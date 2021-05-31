@@ -4,14 +4,13 @@
 #include "Node.h"
 
 namespace SeriousGraphTools {
-    template <typename T>
     class Edge {
         Node* from;
         Node* to;
-        T weight;
+        double weight;
 
     public:
-        Edge(Node* const from, Node* const to, T weight)
+        Edge(Node* const from, Node* const to, double weight)
             : from(from), to(to), weight(weight) {};
 
         Node *getFrom() const {
@@ -30,11 +29,11 @@ namespace SeriousGraphTools {
             Edge::to = to;
         }
 
-        T getWeight() const {
+        double getWeight() const {
             return weight;
         }
 
-        void setWeight(T weight) {
+        void setWeight(double weight) {
             Edge::weight = weight;
         }
     };

@@ -10,7 +10,8 @@ int main() {
     std::cout << "Hello, World!" << std::endl;
 
     sgt::SimpleGraph<void> graph;
-
+    graph.addAutoNodes(4);
+    graph.connect(0, 2);
 
     return 0;
 }
