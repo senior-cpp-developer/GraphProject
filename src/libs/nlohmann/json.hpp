@@ -823,14 +823,14 @@ struct position_t
   JSON_HEDLEY_HAS_WARNING("-Wcast-qual") || \
   JSON_HEDLEY_GCC_VERSION_CHECK(4,6,0) || \
   JSON_HEDLEY_INTEL_VERSION_CHECK(13,0,0)
-#  define JSON_HEDLEY_CONST_CAST(WEIGHT, expr) (__extension__ ({ \
+#  define JSON_HEDLEY_CONST_CAST(T, expr) (__extension__ ({ \
         JSON_HEDLEY_DIAGNOSTIC_PUSH \
         JSON_HEDLEY_DIAGNOSTIC_DISABLE_CAST_QUAL \
-        ((WEIGHT) (expr)); \
+        ((T) (expr)); \
         JSON_HEDLEY_DIAGNOSTIC_POP \
     }))
 #else
-#  define JSON_HEDLEY_CONST_CAST(WEIGHT, expr) ((WEIGHT) (expr))
+#  define JSON_HEDLEY_CONST_CAST(T, expr) ((T) (expr))
 #endif
 
 #if defined(JSON_HEDLEY_REINTERPRET_CAST)
@@ -839,7 +839,7 @@ struct position_t
 #if defined(__cplusplus)
     #define JSON_HEDLEY_REINTERPRET_CAST(T, expr) (reinterpret_cast<T>(expr))
 #else
-    #define JSON_HEDLEY_REINTERPRET_CAST(WEIGHT, expr) ((WEIGHT) (expr))
+    #define JSON_HEDLEY_REINTERPRET_CAST(T, expr) ((T) (expr))
 #endif
 
 #if defined(JSON_HEDLEY_STATIC_CAST)
@@ -848,7 +848,7 @@ struct position_t
 #if defined(__cplusplus)
     #define JSON_HEDLEY_STATIC_CAST(T, expr) (static_cast<T>(expr))
 #else
-    #define JSON_HEDLEY_STATIC_CAST(WEIGHT, expr) ((WEIGHT) (expr))
+    #define JSON_HEDLEY_STATIC_CAST(T, expr) ((T) (expr))
 #endif
 
 #if defined(JSON_HEDLEY_CPP_CAST)
@@ -856,21 +856,21 @@ struct position_t
 #endif
 #if defined(__cplusplus)
 #  if JSON_HEDLEY_HAS_WARNING("-Wold-style-cast")
-#    define JSON_HEDLEY_CPP_CAST(WEIGHT, expr) \
+#    define JSON_HEDLEY_CPP_CAST(T, expr) \
     JSON_HEDLEY_DIAGNOSTIC_PUSH \
     _Pragma("clang diagnostic ignored \"-Wold-style-cast\"") \
-    ((WEIGHT) (expr)) \
+    ((T) (expr)) \
     JSON_HEDLEY_DIAGNOSTIC_POP
 #  elif JSON_HEDLEY_IAR_VERSION_CHECK(8,3,0)
-#    define JSON_HEDLEY_CPP_CAST(WEIGHT, expr) \
+#    define JSON_HEDLEY_CPP_CAST(T, expr) \
     JSON_HEDLEY_DIAGNOSTIC_PUSH \
     _Pragma("diag_suppress=Pe137") \
     JSON_HEDLEY_DIAGNOSTIC_POP \
 #  else
-#    define JSON_HEDLEY_CPP_CAST(WEIGHT, expr) ((WEIGHT) (expr))
+#    define JSON_HEDLEY_CPP_CAST(T, expr) ((T) (expr))
 #  endif
 #else
-#  define JSON_HEDLEY_CPP_CAST(WEIGHT, expr) (expr)
+#  define JSON_HEDLEY_CPP_CAST(T, expr) (expr)
 #endif
 
 #if \
@@ -1952,10 +1952,10 @@ JSON_HEDLEY_DIAGNOSTIC_POP
     #undef JSON_HEDLEY_FLAGS_CAST
 #endif
 #if JSON_HEDLEY_INTEL_VERSION_CHECK(19,0,0)
-#  define JSON_HEDLEY_FLAGS_CAST(WEIGHT, expr) (__extension__ ({ \
+#  define JSON_HEDLEY_FLAGS_CAST(T, expr) (__extension__ ({ \
         JSON_HEDLEY_DIAGNOSTIC_PUSH \
         _Pragma("warning(disable:188)") \
-        ((WEIGHT) (expr)); \
+        ((T) (expr)); \
         JSON_HEDLEY_DIAGNOSTIC_POP \
     }))
 #else
@@ -2969,10 +2969,10 @@ namespace detail
 //
 // Every trait in this file expects a non CV-qualified type.
 // The only exceptions are in the 'aliases for detected' section
-// (i.e. those of the form: decltype(WEIGHT::member_function(std::declval<WEIGHT>())))
+// (i.e. those of the form: decltype(T::member_function(std::declval<T>())))
 //
-// In this case, WEIGHT has to be properly CV-qualified to constraint the function arguments
-// (e.g. to_json(BasicJsonType&, const WEIGHT&))
+// In this case, T has to be properly CV-qualified to constraint the function arguments
+// (e.g. to_json(BasicJsonType&, const T&))
 
 template<typename> struct is_basic_json : std::false_type {};
 
@@ -3029,13 +3029,13 @@ using from_json_function = decltype(T::from_json(std::declval<Args>()...));
 template<typename T, typename U>
 using get_template_function = decltype(std::declval<T>().template get<U>());
 
-// trait checking if JSONSerializer<WEIGHT>::from_json(json const&, udt&) exists
+// trait checking if JSONSerializer<T>::from_json(json const&, udt&) exists
 template<typename BasicJsonType, typename T, typename = void>
 struct has_from_json : std::false_type {};
 
-// trait checking if j.get<WEIGHT> is valid
+// trait checking if j.get<T> is valid
 // use this trait instead of std::is_constructible or std::is_convertible,
-// both rely on, or make use of implicit conversions, and thus fail when WEIGHT
+// both rely on, or make use of implicit conversions, and thus fail when T
 // has several constructors/operator= (see https://github.com/nlohmann/json/issues/958)
 template <typename BasicJsonType, typename T>
 struct is_getable
@@ -3054,7 +3054,7 @@ struct has_from_json < BasicJsonType, T,
         const BasicJsonType&, T&>::value;
 };
 
-// This trait checks if JSONSerializer<WEIGHT>::from_json(json const&) exists
+// This trait checks if JSONSerializer<T>::from_json(json const&) exists
 // this overload is used for non-default-constructible user-defined-types
 template<typename BasicJsonType, typename T, typename = void>
 struct has_non_default_from_json : std::false_type {};
@@ -3069,8 +3069,8 @@ struct has_non_default_from_json < BasicJsonType, T, enable_if_t < !is_basic_jso
         const BasicJsonType&>::value;
 };
 
-// This trait checks if BasicJsonType::json_serializer<WEIGHT>::to_json exists
-// Do not evaluate the trait when WEIGHT is a basic_json type, to avoid template instantiation infinite recursion.
+// This trait checks if BasicJsonType::json_serializer<T>::to_json exists
+// Do not evaluate the trait when T is a basic_json type, to avoid template instantiation infinite recursion.
 template<typename BasicJsonType, typename T, typename = void>
 struct has_to_json : std::false_type {};
 
@@ -9944,7 +9944,7 @@ class binary_reader
             }
         }
 
-        // step 2: convert array into number of type WEIGHT and return
+        // step 2: convert array into number of type T and return
         std::memcpy(&result, vec.data(), sizeof(NumberType));
         return true;
     }
@@ -22569,8 +22569,8 @@ class basic_json
     [comparison function](https://github.com/mariokonrad/marnav/blob/master/include/marnav/math/floatingpoint.hpp#L34-#L39)
     could be used, for instance
     @code {.cpp}
-    template<typename WEIGHT, typename = typename std::enable_if<std::is_floating_point<WEIGHT>::value, WEIGHT>::type>
-    inline bool is_same(WEIGHT a, WEIGHT b, WEIGHT epsilon = std::numeric_limits<WEIGHT>::epsilon()) noexcept
+    template<typename T, typename = typename std::enable_if<std::is_floating_point<T>::value, T>::type>
+    inline bool is_same(T a, T b, T epsilon = std::numeric_limits<T>::epsilon()) noexcept
     {
         return std::abs(a - b) <= epsilon;
     }
@@ -23673,7 +23673,7 @@ class basic_json
     JSON value type | value/range                       | UBJSON type | marker
     --------------- | --------------------------------- | ----------- | ------
     null            | `null`                            | null        | `Z`
-    boolean         | `true`                            | true        | `WEIGHT`
+    boolean         | `true`                            | true        | `T`
     boolean         | `false`                           | false       | `F`
     number_integer  | -9223372036854775808..-2147483649 | int64       | `L`
     number_integer  | -2147483648..-32769               | int32       | `l`
@@ -24165,7 +24165,7 @@ class basic_json
     no-op       | *no value, next value is read*          | `N`
     null        | `null`                                  | `Z`
     false       | `false`                                 | `F`
-    true        | `true`                                  | `WEIGHT`
+    true        | `true`                                  | `T`
     float32     | number_float                            | `d`
     float64     | number_float                            | `D`
     uint8       | number_unsigned                         | `U`
