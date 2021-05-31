@@ -2,7 +2,7 @@
 #include <fstream>
 #include "src/libs/nlohmann/json.hpp"
 #include "src/SeriousGraphTools/SimpleGraph.h"
-#include "src/SeriousGraphTools/Import/Import.h"
+#include "src/SeriousGraphTools/IO/Import.h"
 
 // for convenience
 using json = nlohmann::json;
@@ -26,8 +26,13 @@ int main() {
         std::cout << e.what() << std::endl;
         exit(-1);
     }
-
-    graph = sgt::Import::importFromAdjacencyList(inputJSON);
+    try {
+        graph = sgt::Import::importFromAdjacencyList(inputJSON);
+    }
+    catch (...) {
+        std::cout << "There's a problem with importing your graph. Maybe check later? Dunno " << std::endl;
+        exit(-1);
+    }
 
     return 0;
 }
