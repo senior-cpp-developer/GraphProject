@@ -3,7 +3,7 @@ namespace SeriousGraphTools {
     void SimpleGraph::addAutoNodes(int hMuch) {
         int start = nodes.size();
         for (int i = start; i < hMuch + start; i++)
-            nodes.emplace_back(start);
+            nodes.emplace_back(i);
     }
 
     bool SimpleGraph::connect(int from, int to, double weight) {

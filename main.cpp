@@ -9,9 +9,9 @@ namespace sgt = SeriousGraphTools;
 int main() {
     std::cout << "Hello, World!" << std::endl;
 
-    sgt::SimpleGraph<void> graph;
+    sgt::SimpleGraph graph;
     graph.addAutoNodes(4);
-    graph.connect(0, 2);
+    graph.connect(0, 2, 1);
 
     return 0;
 }
