@@ -11,7 +11,7 @@ namespace SeriousGraphTools {
         T weight;
 
     public:
-        Edge(Node const *from, Node const *to, T weight)
+        Edge(Node* const from, Node* const to, T weight)
             : from(from), to(to), weight(weight) {};
 
         Node *getFrom() const {
