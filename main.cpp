@@ -3,6 +3,7 @@
 #include "src/libs/nlohmann/json.hpp"
 #include "src/SeriousGraphTools/SimpleGraph.h"
 #include "src/SeriousGraphTools/IO/Import.h"
+#include "src/SeriousGraphTools/IO/Export.h"
 
 // for convenience
 using json = nlohmann::json;
@@ -37,6 +38,9 @@ int main() {
     }
 
     cout << "isOriented: " << graph.isOriented() << endl;
+    json outputJSON = sgt::Export::exportToIncidenceMatrix(graph);
+    ofstream outputFile("incidenceMatrix.json");
+    outputFile << outputJSON;
 
     return 0;
 }

@@ -31,6 +31,10 @@ namespace SeriousGraphTools{
 
         bool isOriented() {updateInfo(); return isOriented_;};
 
+        const std::vector<Node> &getNodes() const {return nodes;}
+
+        const std::vector<Edge> &getEdges() const {return edges;}
+
     private:
         void hasChanged() { isDirty_ = true;}
         void updateIsOriented();

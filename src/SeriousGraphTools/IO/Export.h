@@ -9,9 +9,8 @@ using json = nlohmann::json;
 
 namespace SeriousGraphTools {
     class Export {
-        static json exportToIncidenceMatrix(const SimpleGraph &graph) {
-
-        }
+    public:
+        static json exportToIncidenceMatrix(SimpleGraph &graph);
     };
 }
 
