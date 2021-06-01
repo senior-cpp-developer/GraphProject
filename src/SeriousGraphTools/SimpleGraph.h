@@ -12,7 +12,7 @@ namespace SeriousGraphTools{
         std::vector<Edge> edges;
 
         bool isDirty_ = false;
-        bool isOriented_ = false;
+        bool isOriented_ = true;
 
     public:
         SimpleGraph() = default;

@@ -41,10 +41,10 @@ namespace SeriousGraphTools {
         for (auto& edge : edges)
             if (!edge.isBi())
             {
-                isOriented_ = false;
+                isOriented_ = true;
                 return;
             }
-        isOriented_ = true;
+        isOriented_ = false;
     }
 
     bool SimpleGraph::simplify() {

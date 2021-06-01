@@ -7,7 +7,7 @@ json SeriousGraphTools::Export::exportToIncidenceMatrix(SeriousGraphTools::Simpl
         {
             json[row][col] = 0;
             if (graph.getEdges()[col].getTo()->getId() == row)
-                json[row][col] = -1;
+                json[row][col] = graph.isOriented() ? -1 : 1;
             if (graph.getEdges()[col].getFrom()->getId() == row)
                 json[row][col] = 1;
         }
