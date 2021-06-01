@@ -9,18 +9,15 @@ namespace SeriousGraphTools {
 
     bool SimpleGraph::connect(int from, int to, double weight) {
         hasChanged();
-        bool isNew = true;
-        nodes[from].connectTo(&nodes[to]) ? : isNew = false;
-        nodes[to].connectFrom(&nodes[from]) ? : isNew = false;
-
-        if (isNew)
-        {
+        if (!nodes[from].isConnectedTo(&nodes[to])
+        && !nodes[to].isConnectedFrom(&nodes[from])){
             edges.emplace_back(&nodes[from], &nodes[to], weight);
+            nodes[from].addConnection(&edges[edges.size() - 1]);
+            nodes[to].addConnection(&edges[edges.size() - 1]);
             return true;
         }
         else
             return false;
-
     }
 
     bool SimpleGraph::updateInfo() {
