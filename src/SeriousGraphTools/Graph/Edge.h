@@ -1,8 +1,9 @@
 #ifndef GRAPHPROJECT_EDGE_H
 #define GRAPHPROJECT_EDGE_H
 
+#include "Node.h"
+
 namespace SeriousGraphTools {
-    class Node;
     class Edge {
         Node* from;
         Node* to;
