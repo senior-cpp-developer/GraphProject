@@ -51,8 +51,6 @@ namespace SeriousGraphTools {
                 if (edges[i].getTo() == edges[j].getFrom() && edges[i].getFrom() == edges[j].getTo()
                 && edges[i].getWeight() == edges[j].getWeight()) {
                     edges[i].setBi(true);
-                    edges[j].getFrom()->deleteConnection(&edges[j]);
-                    edges[j].getTo()->deleteConnection(&edges[j]);
                     edges.erase(edges.begin() + j);
                     hasChanged = true;
                 }

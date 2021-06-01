@@ -37,22 +37,18 @@ namespace SeriousGraphTools {
             return Tools::isIn(edge, connections);
         }
 
-        bool isConnectedFrom(Node* const node) const {
+        bool isConnectedFrom(Node* node) const {
             for (auto& edge : connections)
                 if (edge->getFrom() == node)
                     return true;
             return false;
         }
 
-        bool isConnectedTo(Node* const node) const {
+        bool isConnectedTo(Node* node) const {
             for (auto& edge : connections)
                 if (edge->getTo() == node)
                     return true;
             return false;
-        }
-
-        void deleteConnection(Edge* const edge) {
-            Tools::eraseRemove(edge, connections);
         }
     };
 
