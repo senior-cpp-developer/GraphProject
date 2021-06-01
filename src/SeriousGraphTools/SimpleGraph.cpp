@@ -38,18 +38,13 @@ namespace SeriousGraphTools {
     }
 
     void SimpleGraph::updateIsOriented() {
-        //TODO all to be changed
-        std::vector<Node*> from, to;
-
-        for (auto& edge : edges) {
-            from.push_back(edge.getFrom());
-            to.push_back(edge.getTo());
-        }
-
-        Tools::sortDeleteDuplicates(from);
-        Tools::sortDeleteDuplicates(to);
-
-        isOriented_ = from.size() != to.size();
+        for (auto& edge : edges)
+            if (!edge.isBi())
+            {
+                isOriented_ = false;
+                return;
+            }
+        isOriented_ = true;
     }
 
     bool SimpleGraph::simplify() {
