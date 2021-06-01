@@ -35,6 +35,10 @@ namespace SeriousGraphTools{
 
         const std::vector<Edge> &getEdges() const {return edges;}
 
+        /*check if possible to replace to opposing edge with one bidirectional
+         * returns true if something has been simplified*/
+        bool simplify();
+
     private:
         void hasChanged() { isDirty_ = true;}
         void updateIsOriented();

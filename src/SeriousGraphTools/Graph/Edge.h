@@ -8,6 +8,7 @@ namespace SeriousGraphTools {
         Node* from;
         Node* to;
         double weight;
+        bool isBi_;
 
     public:
         Edge(Node* const from, Node* const to, double weight)
@@ -35,6 +36,14 @@ namespace SeriousGraphTools {
 
         void setWeight(double weight) {
             Edge::weight = weight;
+        }
+
+        bool isBi() const {
+            return isBi_;
+        }
+
+        void setBi(bool isBi) {
+            isBi_ = isBi;
         }
     };
 }

@@ -37,6 +37,7 @@ int main() {
         exit(-1);
     }
 
+    graph.simplify();
     cout << "isOriented: " << graph.isOriented() << endl;
     json outputJSON = sgt::Export::exportToIncidenceMatrix(graph);
     ofstream outputFile("incidenceMatrix.json");
