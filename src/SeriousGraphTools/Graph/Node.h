@@ -8,6 +8,8 @@ namespace SeriousGraphTools {
     class Node {
 
         int id;
+        std::vector<Edge*> connectionsTo;
+        std::vector<Edge*> connectionsFrom;
         std::vector<Edge*> connections;
 
     public:
@@ -26,26 +28,28 @@ namespace SeriousGraphTools {
         bool addConnection(Edge* const edge) {
             if (isConnected(edge))
                 return false;
-            if (edge->getTo() == this || edge->getFrom() == this)
-                connections.push_back(edge);
+            if (edge->getTo() == this)
+                connectionsTo.push_back(edge);
+            else if (edge->getFrom() == this)
+                connectionsFrom.push_back(edge);
             else
                 return false;
             return true;
         };
 
         bool isConnected(Edge* const edge) const {
-            return Tools::isIn(edge, connections);
+            return Tools::isIn(edge, connectionsTo) || Tools::isIn(edge, connectionsFrom);
         }
 
         bool isConnectedFrom(Node* node) const {
-            for (auto& edge : connections)
+            for (auto& edge : connectionsTo)
                 if (edge->getFrom() == node)
                     return true;
             return false;
         }
 
         bool isConnectedTo(Node* node) const {
-            for (auto& edge : connections)
+            for (auto& edge : connectionsFrom)
                 if (edge->getTo() == node)
                     return true;
             return false;
