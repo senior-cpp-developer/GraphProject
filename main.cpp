@@ -19,6 +19,7 @@ int main() {
     test.addAutoNodes(4);
     test.connect(0, 2, 1, false);
 
+    cout << "Importing graph from adjacency list \"graph-flow.json\"..." << endl;
     std::ifstream inputFile("graph-flow.json");
     json inputJSON;
     sgt::SimpleGraph graph;
@@ -37,14 +38,15 @@ int main() {
         std::cout << "There's a problem with importing your graph. Maybe check later? Dunno " << std::endl;
         exit(-1);
     }
+    cout << endl;
+    cout << "Graph stats ------------" << endl;
+    cout << "Number of nodes: " << graph.getNodes().size() << endl;
+    cout << "Number of edges: " << graph.getEdges().size() << endl;
+    graph.simplify();
+    cout << "This graph is" << (graph.isOriented() ? " " : " not ") << "oriented" << endl << endl;
 
-    //graph.simplify();
     double maxflow = sgt::Alghoritms::edmondsKarp(graph, 0, 6);
-    cout << "isOriented: " << graph.isOriented() << endl;
-    cout << "maxFlow: " << maxflow << endl;
-    json outputJSON = sgt::Export::exportToIncidenceMatrix(graph);
-    ofstream outputFile("incidenceMatrix.json");
-    outputFile << outputJSON;
+    cout << "Edmonds-Karp's algorithm has concluded that this graph has maximum flow of: " << maxflow << endl;
 
     return 0;
 }
