@@ -60,4 +60,10 @@ namespace SeriousGraphTools {
         if (hasChanged) this->hasChanged();
         return hasChanged;
     }
+
+    const Edge& SimpleGraph::getEdge(Node *const from, Node *const to) const {
+        for (auto& edge : edges)
+            if (edge.getFrom() == from && edge.getTo() == to)
+                return edge;
+    }
 }

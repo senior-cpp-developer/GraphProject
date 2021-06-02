@@ -39,6 +39,11 @@ namespace SeriousGraphTools{
          * returns true if something has been simplified*/
         bool simplify();
 
+        int hManyNodes() const {return nodes.size();};
+
+        const Edge& getEdge(Node* const from, Node* const to) const;
+
+
     private:
         void hasChanged() { isDirty_ = true;}
         void updateIsOriented();

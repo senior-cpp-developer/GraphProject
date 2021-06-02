@@ -46,6 +46,14 @@ namespace SeriousGraphTools {
         bool isConnectedFrom(Node* const node) const {
             return Tools::isIn(node, connectedFrom);
         };
+
+        const std::vector<Node *> &getConnectedTo() const {
+            return connectedTo;
+        }
+
+        const std::vector<Node *> &getConnectedFrom() const {
+            return connectedFrom;
+        }
     };
 
 }

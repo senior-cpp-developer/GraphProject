@@ -3,4 +3,4 @@ project(GraphProject)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(GraphProject main.cpp src/SeriousGraphTools/SimpleGraph.cpp src/SeriousGraphTools/SimpleGraph.h src/SeriousGraphTools/Graph/Node.h src/SeriousGraphTools/Graph/Edge.h src/SeriousGraphTools/Tools.h src/SeriousGraphTools/IO/Import.h src/SeriousGraphTools/IO/Import.cpp src/SeriousGraphTools/IO/Export.cpp src/SeriousGraphTools/IO/Export.h)
+add_executable(GraphProject main.cpp src/SeriousGraphTools/SimpleGraph.cpp src/SeriousGraphTools/SimpleGraph.h src/SeriousGraphTools/Graph/Node.h src/SeriousGraphTools/Graph/Edge.h src/SeriousGraphTools/Tools.h src/SeriousGraphTools/IO/Import.h src/SeriousGraphTools/IO/Import.cpp src/SeriousGraphTools/IO/Export.cpp src/SeriousGraphTools/IO/Export.h src/SeriousGraphTools/Alghoritms.cpp src/SeriousGraphTools/Alghoritms.h)
