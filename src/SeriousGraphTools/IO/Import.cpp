@@ -8,7 +8,7 @@ namespace SeriousGraphTools {
 
         for(int i = 0; i < json.size(); i++)
             for (auto& val : json[i])
-                graph.connect(i, val, 1);
+                graph.connect(i, val, 1, false);
 
         return graph;
     }

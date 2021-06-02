@@ -4,6 +4,7 @@
 #include "src/SeriousGraphTools/SimpleGraph.h"
 #include "src/SeriousGraphTools/IO/Import.h"
 #include "src/SeriousGraphTools/IO/Export.h"
+#include "src/SeriousGraphTools/Alghoritms.h"
 
 // for convenience
 using json = nlohmann::json;
@@ -16,9 +17,9 @@ int main() {
 
     sgt::SimpleGraph test;
     test.addAutoNodes(4);
-    test.connect(0, 2, 1);
+    test.connect(0, 2, 1, false);
 
-    std::ifstream inputFile("graph.json");
+    std::ifstream inputFile("graph-flow.json");
     json inputJSON;
     sgt::SimpleGraph graph;
     try {
@@ -37,8 +38,10 @@ int main() {
         exit(-1);
     }
 
-    graph.simplify();
+    //graph.simplify();
+    double maxflow = sgt::Alghoritms::edmondsKarp(graph, 0, 6);
     cout << "isOriented: " << graph.isOriented() << endl;
+    cout << "maxFlow: " << maxflow << endl;
     json outputJSON = sgt::Export::exportToIncidenceMatrix(graph);
     ofstream outputFile("incidenceMatrix.json");
     outputFile << outputJSON;

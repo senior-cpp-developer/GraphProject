@@ -19,7 +19,7 @@ namespace SeriousGraphTools{
 
         void addAutoNodes(int hMuch);
 
-        bool connect (int from, int to, double weight);
+        bool connect (int from, int to, double weight, bool isBi);
 
         /*Updates graph's stats like isOriented_
          * ignores isDirty_ and forces update*/
@@ -41,8 +41,13 @@ namespace SeriousGraphTools{
 
         int hManyNodes() const {return nodes.size();};
 
+        Edge& edge(const Node* from,const Node* to);
+
         const Edge& getEdge(const Node* from,const Node* to) const;
 
+        Edge& edge(int from, int to);
+
+        const Edge& getEdge(int from, int to) const;
 
     private:
         void hasChanged() { isDirty_ = true;}

@@ -1,4 +1,5 @@
 #include "SimpleGraph.h"
+#include <stdexcept>
 namespace SeriousGraphTools {
     void SimpleGraph::addAutoNodes(int hMuch) {
         hasChanged();
@@ -7,15 +8,19 @@ namespace SeriousGraphTools {
             nodes.emplace_back(i);
     }
 
-    bool SimpleGraph::connect(int from, int to, double weight) {
+    bool SimpleGraph::connect(int from, int to, double weight, bool isBi) {
         hasChanged();
         bool isNew = true;
         nodes[from].connectTo(&nodes[to]) ? : isNew = false;
         nodes[to].connectFrom(&nodes[from]) ? : isNew = false;
+        if (isBi) {
+            nodes[from].connectFrom(&nodes[to]) ? : isNew = false;
+            nodes[to].connectTo(&nodes[from]) ? : isNew = false;
+        }
 
         if (isNew)
         {
-            edges.emplace_back(&nodes[from], &nodes[to], weight);
+            edges.emplace_back(&nodes[from], &nodes[to], weight, isBi);
             return true;
         }
         else
@@ -61,9 +66,22 @@ namespace SeriousGraphTools {
         return hasChanged;
     }
 
-    const Edge& SimpleGraph::getEdge(const Node* from, const Node * to) const {
+    const Edge& SimpleGraph::getEdge(const Node* from, const Node* to) const {
         for (auto& edge : edges)
             if (edge.getFrom() == from && edge.getTo() == to)
                 return edge;
+        throw std::invalid_argument("Edge not found");
+    }
+
+    Edge &SimpleGraph::edge(int from, int to) {
+        return const_cast<Edge &>(getEdge(&nodes[from], &nodes[to])); //good enough
+    }
+
+    Edge &SimpleGraph::edge(const Node *from, const Node *to) {
+        return edge(from, to);
+    }
+
+    const Edge &SimpleGraph::getEdge(int from, int to) const {
+        return getEdge(&nodes[from], &nodes[to]);
     }
 }
