@@ -41,7 +41,7 @@ namespace SeriousGraphTools{
 
         int hManyNodes() const {return nodes.size();};
 
-        const Edge& getEdge(Node* const from, Node* const to) const;
+        const Edge& getEdge(const Node* from,const Node* to) const;
 
 
     private:

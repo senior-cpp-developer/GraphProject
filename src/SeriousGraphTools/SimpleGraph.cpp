@@ -61,7 +61,7 @@ namespace SeriousGraphTools {
         return hasChanged;
     }
 
-    const Edge& SimpleGraph::getEdge(Node *const from, Node *const to) const {
+    const Edge& SimpleGraph::getEdge(const Node* from, const Node * to) const {
         for (auto& edge : edges)
             if (edge.getFrom() == from && edge.getTo() == to)
                 return edge;
