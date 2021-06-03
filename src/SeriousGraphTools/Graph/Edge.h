@@ -11,7 +11,7 @@ namespace SeriousGraphTools {
         bool isBi_;
 
     public:
-        Edge(Node* const from, Node* const to, double weight, bool isBi)
+        Edge(Node* from, Node* to, double weight, bool isBi)
             : from(from), to(to), weight(weight), isBi_(isBi) {};
 
         Node *getFrom() const {

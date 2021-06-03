@@ -23,7 +23,7 @@ namespace SeriousGraphTools {
 
         /*connect this node to another one
          * return true when successfully connects*/
-        bool connectTo(Node* const node) {
+        bool connectTo(Node* node) {
             if (isConnectedTo(node))
                 return false;
             connectedTo.push_back(node);
@@ -32,18 +32,18 @@ namespace SeriousGraphTools {
 
         /*connect to this node from another one
          * return true when successfully connects*/
-        bool connectFrom(Node* const node) {
+        bool connectFrom(Node* node) {
             if (isConnectedFrom(node))
                 return false;
             connectedFrom.push_back(node);
             return true;
         };
 
-        bool isConnectedTo(Node* const node) const {
+        bool isConnectedTo(const Node* node) const {
             return Tools::isIn(node, connectedTo);
         };
 
-        bool isConnectedFrom(Node* const node) const {
+        bool isConnectedFrom(const Node* node) const {
             return Tools::isIn(node, connectedFrom);
         };
 

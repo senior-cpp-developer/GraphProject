@@ -1,6 +1,6 @@
 #include "Export.h"
 
-json SeriousGraphTools::Export::exportToIncidenceMatrix(SeriousGraphTools::SimpleGraph &graph) {
+json SeriousGraphTools::Export::exportToIncidenceMatrix(const SeriousGraphTools::SimpleGraph &graph) {
     json json;
     for (int col = 0; col < graph.getEdges().size(); col++)
         for (int row = 0; row < graph.getNodes().size(); row++)
