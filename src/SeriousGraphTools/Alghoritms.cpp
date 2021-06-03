@@ -4,6 +4,13 @@
 
 namespace SeriousGraphTools {
     double Alghoritms::edmondsKarp(const SimpleGraph &graph, int inId, int outId) {
+        /* thanks
+         * https://eduinf.waw.pl/inf/alg/001_search/0124.php
+         * https://eduinf.waw.pl/inf/alg/001_search/0146.php
+         * https://pl.wikipedia.org/wiki/Algorytm_Edmondsa-Karpa
+         * https://algorytmy.ency.pl/artykul/przeszukiwanie_wszerz
+         * http://algorytmy.ency.pl/artykul/algorytm_edmondsa_karpa*/
+
         int n = graph.hManyNodes();
         SimpleGraph flowsGraph;
         flowsGraph.addAutoNodes(n);
