@@ -1,6 +1,6 @@
 # GraphProject
 
-#About
+## About
 It is a simple library for handling and analyzing graphs. Definitely not the fastest or memory efficient one, 
 but still does the job, and is (in my opinion) easy to understand.
 The [main.cpp](https://github.com/senior-cpp-developer/GraphProject/blob/master/main.cpp) provides simple
