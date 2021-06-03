@@ -12,15 +12,19 @@ namespace sgt = SeriousGraphTools;
 
 using namespace std;
 
-int main() {
+int main(int argc, char *argv[]) {
     std::cout << "Hello, World!" << std::endl;
 
-    sgt::SimpleGraph test;
-    test.addAutoNodes(4);
-    test.connect(0, 2, 1, false);
+    string fileLocation = "graph-flow.json";
+    if (argc == 2)
+        fileLocation = string(argv[1]);
 
-    cout << "Importing graph from adjacency list \"graph-flow.json\"..." << endl;
-    std::ifstream inputFile("graph-flow.json");
+    cout << "Importing graph from adjacency list \"" << fileLocation << "\"..." << endl;
+    std::ifstream inputFile(fileLocation);
+    if (inputFile.fail()) {
+        cout << "Can't open the file!" << endl;
+        exit(-1);
+    }
     json inputJSON;
     sgt::SimpleGraph graph;
     try {
